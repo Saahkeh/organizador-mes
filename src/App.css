@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #F5F5DC;
+    color: #333;
+}
+  
+  #root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+  
+  .app-container {
+    text-align: center;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;  
+}
+  
+  button {
+    background: #FAEBD7;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+  
+  button:hover {
+    background: #f0e68c;
+}
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+}
+  
+  li {
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+  
+  .error {
+    color: red;
+}
+  
