@@ -1,48 +1,64 @@
 import React, { useReducer } from 'react';
-import {textos} from '../contexts/textos';
+import { textos } from '../contexts/textos';
 
 const initialState = {
-    itens: [],
+    dados: [],
     carregando: false,
-    erro: false
+    erro: false,
+    filtro: "",
+    resultado: []
 };
 
 function reducer(state, action) {
-    switch (action.tpe) {
+    switch (action.type) {
         case 'CARREGAR':
-            return { ...state, carregando: true, erro: false, itens: [] };
+            return { ...state, carregando: true, erro: false };
         case 'SUCESSO':
-            return { ...state, carregando: false, erro: false, itens: action.payload };
+            return { ...state, carregando: false, dados: action.payload, resultado: action.payload };
         case 'ERRO':
-            return { ...state, carregando: false, erro: true};
+            return { ...state, carregando: false, erro: action.payload };
+        case 'BUSCAR':
+            const resultadoFiltrados = state.dados.filter(item =>
+                item.nome.toLowerCase().includes(action.payload.toLowerCase())
+            );
+            return { ...state, filtro: action.payload, resultado: resultadoFiltrados };
         default:
             return state;
     }
 }
 
-function App() {
+export default function App() {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const buscarItens = () => {
+    const buscarDados = () => {
         dispatch({ type: 'CARREGAR' });
-        fetch('https://raw.githubusercontent.com/Saahkeh/compra-do-mes/main/compra.jsons')
+        fetch('https://raw.githubusercontent.com/Saahkeh/compra-do-mes/main/compra.json')
+
             .then((res) => res.json())
-            .then((data) => {dispatch({ type: 'SUCESSO', payload: data.itens })})
-            .catch((error) => {dispatch({ type: 'ERRO' })});
+            .then((dados) => dispatch({ type: "SUCESSO", payload: dados }))
+            .catch(() => dispatch({ type: "ERRO", payload: true }));
     };
+
     return (
-        <div className= "app-container">
+        <div className="app">
             <h1>{textos.titulo}</h1>
-            <button onClick={buscarItens}>{textos.botao}</button>
-            {state.carregando && <p>{textos.carregando}</p>}
+            <button onClick={buscarDados}>{textos.botaoBuscar}</button>
+            <input
+                type="text"
+                placeholder={textos.placeholder}
+                value={state.filtro}
+                onChange={(e) => dispatch({ type: 'BUSCAR', payload: e.target.value })}
+            />
+            {state.carregando && <p>Carregando...</p>}
             {state.erro && <p className="error">{textos.erro}</p>}
             <ul>
-                {state.itens.map((item,index) => (
-                        <li key={index}>{item}</li>
+                {state.resultado.map((item, index) => (
+                    <li key={index}>
+                        <strong>{item.nome}</strong> - {item.preco} - {item.quantidade} - {item.unidade}
+                    </li>
                 ))}
             </ul>
-        </div>    
+        </div>
     );
 }
 
-export default App;

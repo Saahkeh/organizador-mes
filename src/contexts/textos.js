@@ -1,6 +1,7 @@
 export const textos = {
     titulo: "Organize suas compras do mes",
-    botao: "Buscar item",
+    botaoBuscar: "Buscar item",
     carregando: "Buscando item...",
-    erro: "Erro ao buscar ite.m Tente novamente"
+    erro: "Erro ao buscar item Tente novamente",
+    placeholder: "Digite o nome do item"
 }
