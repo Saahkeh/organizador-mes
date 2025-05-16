@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import { textos } from '../contexts/textos';
+import {Button, TextareaAutosize, TextField} from '@mui/material';
 
 const initialState = {
     dados: [],
@@ -42,13 +43,15 @@ export default function App() {
     return (
         <div className="app">
             <h1>{textos.titulo}</h1>
-            <button onClick={buscarDados}>{textos.botaoBuscar}</button>
-            <input
-                type="text"
-                placeholder={textos.placeholder}
-                value={state.filtro}
-                onChange={(e) => dispatch({ type: 'BUSCAR', payload: e.target.value })}
+            <TextField 
+            label={textos.placeholder}
+            variant="outlined"
+            fullWidthvalue={state.filtro}
+            onChange={(e) => dispatch({type:'BUSCAR', playload: e.target.value})}
             />
+
+            <Button variant="contained" onClick={buscarDados}>{textos.botaoBuscar}</Button>
+
             {state.carregando && <p>Carregando...</p>}
             {state.erro && <p className="error">{textos.erro}</p>}
             <ul>
