@@ -1,5 +1,4 @@
 {
-    "homepage": "https://saahkeh.github.io/organizador-do-mes",
     "name": "organizador-do-mes",
     "version": "1.0.0",
     "description": "Projeto React simples com useReducer",
