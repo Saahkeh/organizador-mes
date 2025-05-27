@@ -8,7 +8,7 @@
         "build": "webpack --mode production",
         "predeploy": "webpack --mode production",
         "deploy": "gh-pages -d dist",
-        "homepage": "https://saahkeh.github.io/organizador-do-mes"
+        "homepage": "https://saahkeh.github.io/organizador-do-mes/"
     },
     "dependencies": {
         "@emotion/react": "^11.14.0",
